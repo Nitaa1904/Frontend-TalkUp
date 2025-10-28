@@ -7,7 +7,7 @@ import {
   Button,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { menuItems } from "../../../presenters/menu";
+import { menuData } from "../../../models/menu/menuData";
 import { useNavbarPresenter } from "../../../presenters/navbar-presenter";
 
 const Navbar = () => {
@@ -29,14 +29,14 @@ const Navbar = () => {
           <NavbarToggle />
 
           <NavbarCollapse>
-            {menuItems.map((item, index) => (
+            {menuData.map((item, index) => (
               <NavbarLink
                 key={index}
                 as={Link}
                 to={item.path}
                 active={location.pathname === item.path}
               >
-                {item.label}
+                {item.name}
               </NavbarLink>
             ))}
             <Button as={Link} to="/login" color={'primary'} size="sm">

@@ -14,3 +14,32 @@
 
   --font-family-inter: "Inter", sans-serif;
 }
+
+/* ================== */
+/* Animasi Custom CSS */
+/* ================== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-floating {
+  animation: floating 4s ease-in-out infinite;
+}
