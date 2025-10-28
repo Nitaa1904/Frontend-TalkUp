@@ -1,34 +1,11 @@
-import React from "react";
-import MudahDiaksesImg from "../../../assets/images/features/mudah-diakses.png";
-import ResponCepatImg from "../../../assets/images/features/respon-cepat.png";
-import BimbinganTerbaikImg from "../../../assets/images/features/bimbingan-terbaik.png";
+import { featuresData } from "../../models/home/featuresData";
 
-const features = [
-  {
-    id: 1,
-    img: MudahDiaksesImg,
-    title: "Mudah Diakses",
-    desc: "Cukup beberapa langkah untuk mulai berkonseling",
-  },
-  {
-    id: 2,
-    img: ResponCepatImg,
-    title: "Respon Cepat",
-    desc: "Konselor siap membantu dengan cepat dan tanggap",
-  },
-  {
-    id: 3,
-    img: BimbinganTerbaikImg,
-    title: "Bimbingan Terbaik",
-    desc: "Kami mengutamakan kenyamanan dan kepercayaan siswa",
-  },
-];
-
-// FeatureCard
 const FeatureCard = ({ img, title, desc }) => {
   return (
-    <div className="flex flex-col items-center text-center max-w-[290px] mx-auto 
-                    transition-transform duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-xl">
+    <div
+      className="flex flex-col items-center text-center max-w-[290px] mx-auto 
+                 transition-transform duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-xl"
+    >
       <img
         src={img}
         alt={title}
@@ -50,7 +27,7 @@ const Features = () => {
         </h2>
 
         <div className="grid gap-10 md:grid-cols-3">
-          {features.map((feature) => (
+          {featuresData.map((feature) => (
             <FeatureCard
               key={feature.id}
               img={feature.img}

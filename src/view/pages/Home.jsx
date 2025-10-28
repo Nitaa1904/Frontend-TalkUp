@@ -1,6 +1,6 @@
 import Hero from "../components/layout/Hero";
-import Features from "../components/layout/Features";
-import Counselors from "../components/layout/Counselors";
+import Features from "../home/Features";
+import Counselors from "../home/Counselors";
 
 function Home() {
   return (
