@@ -40,7 +40,7 @@ const Navbar = () => {
                 {item.name}
               </NavbarLink>
             ))}
-            <Button as={Link} to="/konseling" color="primary" size="sm">
+            <Button as={Link} to="/login" color={'primary'} size="sm">
               Login
             </Button>
           </NavbarCollapse>
