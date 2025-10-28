@@ -1,4 +1,4 @@
-import { counselorsData } from "../../models/home/counselorsData";
+import { counselorsData } from "../../../../models/home/counselorsData";
 
 const CounselorCard = ({ img, name, role }) => {
   return (

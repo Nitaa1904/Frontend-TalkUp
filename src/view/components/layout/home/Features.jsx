@@ -1,4 +1,4 @@
-import { featuresData } from "../../models/home/featuresData";
+import { featuresData } from "../../../../models/home/featuresData";
 
 const FeatureCard = ({ img, title, desc }) => {
   return (
