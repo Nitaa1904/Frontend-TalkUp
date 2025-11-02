@@ -1,6 +1,31 @@
 import { createTheme } from "flowbite-react";
 
 const customTheme = createTheme({
+  // avatar
+  avatar: {
+    root: {
+      base: "flex justify-center items-center space-x-4 rounded",
+      bordered: "p-1 ring-2",
+      rounded: "rounded-full",
+      color: {
+        primary: "ring-black bg-black",
+        secondary: "ring-gray-800 bg-white",
+      },
+      img: {
+        off: "relative overflow-hidden bg-black",
+        on: "rounded-full",
+        placeholder: "absolute w-auto h-auto text-white -bottom-1",
+      },
+      size: {
+        xs: "w-6 h-6",
+        sm: "w-8 h-8",
+        md: "w-10 h-10",
+        lg: "w-12 h-12",
+        xl: "w-16 h-16",
+      },
+    },
+  },
+  
   // button
   button: {
     base: "font-medium text-center transition-colors inline-block",
@@ -30,18 +55,16 @@ const customTheme = createTheme({
 
   // text input
   textInput: {
-    base: "block w-full",
     field: {
-      base: "rounded-lg border",
       input: {
-        base: "px-3 py-2",
-        sizes: {
-          sm: "text-sm",
-          md: "text-base",
-        },
+        base: "w-full px-4 py-2.5 text-sm rounded-full border border-border bg-white text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-focus focus:border-focus focus:outline-none",
         colors: {
-          primary: "border-gray-50 bg-white",
-          error: "border-red-500 bg-red-50",
+          primary: "border-border focus:ring-focus focus:border-focus",
+          error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+        },
+        sizes: {
+          sm: "text-sm py-2",
+          md: "text-base py-2.5",
         },
       },
     },
