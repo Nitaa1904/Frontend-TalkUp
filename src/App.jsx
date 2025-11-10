@@ -15,6 +15,7 @@ import ForumNew from "./view/components/layout/forum/ForumNew";
 import ForumDetail from "./view/components/layout/forum/ForumDetail";
 import Konsultasi from "./view/pages/dashboard/Konsultasi";
 import RiwayatKonseling from "./view/pages/dashboard/RiwayatKonseling";
+import KonsultasiDetail from "./view/pages/dashboard/KonsultasiDetail";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard/konsultasi" element={<Konsultasi />} />
             <Route path="/dashboard/riwayat" element={<RiwayatKonseling />} />
+            <Route path="/dashboard/konsultasi/:id" element={<KonsultasiDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>
