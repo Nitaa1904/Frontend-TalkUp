@@ -3,23 +3,26 @@ import { ThemeProvider } from "flowbite-react";
 import customTheme from "./theme";
 import "./index.css";
 
-import Navbar from "./view/components/layout/Navbar";
-import Footer from "./view/components/layout/Footer";
+// layout
+import MainLayout from "./view/components/layout/MainLayout";
+import DashboardLayout from "./view/components/layout/DashboardLayout";
+
+// pages
 import Home from "./view/pages/Home";
 import Login from "./view/pages/Login";
-import Guru_BK from "./view/pages/dashboard/Guru_BK";
+import Forum from "./view/pages/Forum";
+import ForumNew from "./view/components/layout/forum/ForumNew";
+import ForumDetail from "./view/components/layout/forum/ForumDetail";
 
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard/guru_bk" element={<Guru_BK />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
