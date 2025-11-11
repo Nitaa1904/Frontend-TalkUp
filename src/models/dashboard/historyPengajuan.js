@@ -1,0 +1,51 @@
+export const historyPengajuan = [
+  {
+    no: 1,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Menunggu",
+  },
+  {
+    no: 1,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    no: 1,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    no: 2,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Menunggu",
+  },
+  {
+    no: 3,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    no: 4,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    no: 5,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+];
