@@ -7,7 +7,8 @@ export const konsultasiData = [
     jenis_sesi: "Online",
     topik: "Karir",
     tanggal: "15 Oktober 2025",
-    deskripsi: "Lorem ipsum dolor sit amet consectetur. Scelerisque risus non nulla volutpat id bibendum.",
+    deskripsi:
+      "Lorem ipsum dolor sit amet consectetur. Scelerisque risus non nulla volutpat id bibendum.",
     status: "Menunggu",
   },
   {
@@ -19,6 +20,33 @@ export const konsultasiData = [
     topik: "Akademik",
     tanggal: "20 Oktober 2025",
     deskripsi: "Permasalahan nilai dan jadwal belajar.",
+    tanggal_konseling: "18 Oktober 2025",
     status: "Disetujui",
+  },
+  {
+    id: 3,
+    nama: "Ahmad Junaidi",
+    kelas: "XI RPL 2",
+    guru_bk: "Bu Rina Astuti, S.Pd.",
+    jenis_sesi: "Online",
+    topik: "Pribadi",
+    tanggal: "10 Oktober 2025",
+    tanggal_konseling: "12 Oktober 2025",
+    deskripsi:
+      "Konseling mengenai manajemen waktu dan keseimbangan belajar.",
+    hasil_konseling:
+      "Siswa telah memahami cara mengatur waktu belajar yang lebih efektif dan menjaga kesehatan mental.",
+    status: "Selesai",
+  },
+  {
+    id: 4,
+    nama: "Rafi Alamsyah",
+    kelas: "XI MM 1",
+    guru_bk: "Pak Dedi Supriadi, S.Pd.",
+    jenis_sesi: "Offline",
+    topik: "Sosial",
+    tanggal: "22 Oktober 2025",
+    deskripsi: "Konseling mengenai hubungan pertemanan di sekolah.",
+    status: "Menunggu",
   },
 ];
