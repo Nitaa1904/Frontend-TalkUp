@@ -64,7 +64,6 @@ export default function Index() {
                 <th className="p-3">Status</th>
                 <th className="p-3 text-center">Aksi</th>
               </tr>
-              
             </thead>
             <tbody>
               {currentHistoryData.map((item, index) => (
@@ -85,18 +84,10 @@ export default function Index() {
                       {item.status}
                     </span>
                   </td>
-                  <td className="p-3 text-center flex justify-center gap-3">
-                    {item.status === "Menunggu" ? (
-                      <Link to={`/dashboard/permintaanKonseling/${item.id}`}>
-                        <EyeOutlined className="text-red-500 hover:text-red-600 cursor-pointer text-lg" />
-                      </Link>
-                    ) : (
-                      <>
-                        <Link to={`/dashboard/permintaanKonseling/${item.id}`}>
-                          <EyeOutlined className="text-green-500 hover:text-green-600 cursor-pointer text-lg" />
-                        </Link>
-                      </>
-                    )}
+                  <td className="p-3 text-center flex justify-center gap-3 text-green-500 hover:text-green-600">
+                    <Link to={`/dashboard/permintaanKonseling/${item.id}`}>
+                      <EyeOutlined className=" cursor-pointer text-lg" />
+                    </Link>
                   </td>
                 </tr>
               ))}

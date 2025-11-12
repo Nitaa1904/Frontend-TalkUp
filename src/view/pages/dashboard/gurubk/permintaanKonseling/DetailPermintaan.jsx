@@ -54,7 +54,7 @@ export default function Detail() {
       </p>
       <div className="flex flex-col gap-2 ">
         <h1 className="text-xl font-medium">Dashboard</h1>
-        <h3 className="text-base ">Daftar Konseling Siswa-Siswi</h3>
+        <h3 className="text-base ">Permintaan konselingmu sedang di proses. Mohon tunggu balasan dari guru BK melalui email atau halaman ini</h3>
       </div>
 
       <div className="p-4 border border-gray-300 rounded-lg">

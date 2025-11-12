@@ -14,8 +14,10 @@ import Forum from "./view/pages/Forum";
 import ForumNew from "./view/components/layout/forum/ForumNew";
 import ForumDetail from "./view/components/layout/forum/ForumDetail";
 import GuruBK from "./view/pages/dashboard/gurubk/GuruBK";
-import Index from "./view/pages/dashboard/gurubk/permintaanKonseling/Index";
-import Detail from "./view/pages/dashboard/gurubk/permintaanKonseling/Detail";
+import IndexPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/IndexPermintaan";
+import DetailPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/DetailPermintaan";
+import IndexJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/IndexJadwal";
+import DetailJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/DetailJadwal";
 
 function App() {
   return (
@@ -29,8 +31,10 @@ function App() {
 
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route path="gurubk" element={<GuruBK />} />
-            <Route path="permintaankonseling" element={<Index />} />
-            <Route path="permintaankonseling/:id" element={<Detail />} />
+            <Route path="permintaankonseling" element={<IndexPermintaan />} />
+            <Route path="permintaankonseling/:id" element={<DetailPermintaan />} />
+            <Route path="jadwalkonseling" element={<IndexJadwal />} />
+            <Route path="permintaankonseling/:id" element={<DetailJadwal />} />
           </Route>
         </Routes>
       </BrowserRouter>
