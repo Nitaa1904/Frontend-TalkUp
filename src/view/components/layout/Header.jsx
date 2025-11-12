@@ -1,37 +1,45 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { DownOutlined, UpOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-function Header() {
+export default function Header() {
   const [openDropdown, setOpenDropdown] = useState(false);
 
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown);
+  };
+
   return (
-    <header className="bg-white shadow flex items-center justify-between px-6 py-4 relative">
-      <div></div>
-
-      <div className="flex items-center space-x-4">
-        <button className="relative text-gray-700 hover:text-gray-900">
-          <span className="text-xl">🔔</span>
-        </button>
-
-        <div className="relative">
-          <button
-            onClick={() => setOpenDropdown(!openDropdown)}
-            className="text-gray-700 hover:text-gray-900 text-xl"
-          >
-            👤
-          </button>
+    <>
+      <div className="w-full py-4 border-b border-b-gray-200">
+        <div className="flex justify-end items-center px-8 relative">
+          <div className="">
+            <BellOutlined className="text-xl mx-4 cursor-pointer" />
+          </div>
+          <div className="bg-gray-900 rounded-full">
+            <UserOutlined className="text-xl mx-2 my-2 cursor-pointer !text-white" />
+          </div>
+          <div className="" onClick={toggleDropdown}>
+            {openDropdown ? (
+              <UpOutlined className="text-xl mx-4 cursor-pointer" />
+            ) : (
+              <DownOutlined className="text-xl mx-4 cursor-pointer" />
+            )}
+          </div>
 
           {openDropdown && (
-            <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-md border w-40">
+            <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-md border w-40 top-full">
               <Link
                 to="/"
                 className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                onClick={() => setOpenDropdown(false)}
               >
                 Beranda
               </Link>
               <Link
                 to="/forum"
                 className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
+                onClick={() => setOpenDropdown(false)}
               >
                 Forum Diskusi
               </Link>
@@ -39,8 +47,6 @@ function Header() {
           )}
         </div>
       </div>
-    </header>
+    </>
   );
 }
-
-export default Header;
