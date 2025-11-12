@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineEye } from "react-icons/hi";
-import { konsultasiData } from "../../../models/dashboard/konsultasiModel";
+import { konsultasiData } from "../../../../models/dashboard/siswa/konsultasiModel";
 
 function RiwayatKonseling() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,7 +71,6 @@ function RiwayatKonseling() {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="mt-6 flex justify-center space-x-2">
         <button
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}

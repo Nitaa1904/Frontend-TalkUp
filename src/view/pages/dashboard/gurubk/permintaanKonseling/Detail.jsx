@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useParams, Link } from "react-router-dom";
-import { historyPengajuan } from "../../../../../models/dashboard/historyPengajuan";
+import { historyPengajuan } from "../../../../../models/dashboard/siswa/historyPengajuan";
 import {
   UserOutlined,
   MessageOutlined,

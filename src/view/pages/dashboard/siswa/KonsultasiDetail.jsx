@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { konsultasiData } from "../../../models/dashboard/konsultasiModel";
+import { konsultasiData } from "../../../../models/dashboard/siswa/konsultasiModel";
 import {
   HiOutlineUser,
   HiOutlineChatAlt2,
@@ -18,7 +18,6 @@ function KonsultasiDetail() {
     return <div className="p-6 text-gray-500">Data tidak ditemukan.</div>;
   }
 
-  // Warna status badge berdasarkan status
   const statusColor =
     data.status === "Menunggu"
       ? "warning"
@@ -28,14 +27,11 @@ function KonsultasiDetail() {
 
   return (
     <div className="p-6">
-      {/* Breadcrumb & Header */}
       <h2 className="text-sm text-gray-500 mb-1">Riwayat Konseling / Detail</h2>
       <h1 className="text-2xl font-semibold mb-2">Status Pengajuan Konseling</h1>
       <p className="text-gray-600 mb-8">
         Permintaan konselingmu sedang diproses. Mohon tunggu balasan dari guru BK melalui email atau halaman ini.
       </p>
-
-      {/* DETAIL PENGAJUAN */}
       <div className="bg-white shadow-sm rounded-xl border p-6 mb-8">
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-semibold text-lg">Detail Pengajuan</h3>
@@ -94,8 +90,6 @@ function KonsultasiDetail() {
           </div>
         </div>
       </div>
-
-      {/* DETAIL KONSELING */}
       {(data.status === "Disetujui" || data.status === "Selesai") && (
         <div className="bg-white shadow-sm rounded-xl border p-6 mb-8">
           <h3 className="font-semibold text-lg mb-6">Detail Konseling</h3>
@@ -159,7 +153,6 @@ function KonsultasiDetail() {
         </div>
       )}
 
-      {/* CATATAN KONSELING */}
       {data.status === "Selesai" && (
         <div className="bg-white shadow-sm rounded-xl border p-6 mb-8">
           <h3 className="font-semibold text-lg mb-6">Catatan Konseling</h3>
@@ -185,7 +178,6 @@ function KonsultasiDetail() {
         </div>
       )}
 
-      {/* BUTTON KEMBALI */}
       <div className="flex justify-start">
         <Button
           color="failure"

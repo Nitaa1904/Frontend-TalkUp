@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DownOutlined, UpOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+const Header = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -49,4 +49,6 @@ export default function Header() {
       </div>
     </>
   );
-}
+};
+
+export default Header;

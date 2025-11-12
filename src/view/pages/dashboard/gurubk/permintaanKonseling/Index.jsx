@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { EyeOutlined } from "@ant-design/icons";
-import { historyPengajuan } from "../../../../../models/dashboard/historyPengajuan";
+import { historyPengajuan } from "../../../../../models/dashboard/siswa/historyPengajuan";
 
 export default function Index() {
   const [currentHistoryPage, setCurrentHistoryPage] = useState(1);

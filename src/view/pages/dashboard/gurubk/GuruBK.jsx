@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { jadwalKonseling } from "../../../../models/dashboard/jadwalKonseling";
-import { historyPengajuan } from "../../../../models/dashboard/historyPengajuan";
+import { jadwalKonseling } from "../../../../models/dashboard/siswa/jadwalKonseling";
+import { historyPengajuan } from "../../../../models/dashboard/siswa/historyPengajuan";
 
 export default function Guru_BK() {
   const [currentKonselingPage, setCurrentKonselingPage] = useState(1);
