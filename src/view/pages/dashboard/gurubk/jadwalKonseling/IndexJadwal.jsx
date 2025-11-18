@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { jadwalKonseling } from "../../../../../models/dashboard/jadwalKonseling";
+import { jadwalKonseling } from "../../../../../models/dashboard/siswa/jadwalKonseling.js";
 
 export default function IndexJadwal() {
   const [currentKonselingPage, setCurrentKonselingPage] = useState(1);

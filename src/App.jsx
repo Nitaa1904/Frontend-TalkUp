@@ -8,6 +8,7 @@ import DashboardLayout from "./view/components/layout/DashboardLayout";
 // pages
 import Home from "./view/pages/Home";
 import Login from "./view/pages/Login";
+import Register from "./view/pages/Register";   
 import Forum from "./view/pages/Forum";
 import ForumNew from "./view/components/layout/forum/ForumNew";
 import ForumDetail from "./view/components/layout/forum/ForumDetail";
@@ -17,8 +18,8 @@ import DaftarGuruBK from "./view/pages/dashboard/superadmin/GuruBK";
 import DaftarSiswa from "./view/pages/dashboard/superadmin/Siswa";
 // gurubK
 import GuruBK from "./view/pages/dashboard/gurubk/GuruBK";
-import IndexPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/Index";
-import DetailPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/Detail";
+import IndexPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/IndexPermintaan";
+import DetailPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/DetailPermintaan";
 import IndexJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/IndexJadwal";
 import DetailJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/DetailJadwal";
 // siswa
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/" element={<MainLayout />}>
             <Route path="" element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="forum" element={<Forum />} />
             <Route path="forum/new" element={<ForumNew />} />
             <Route path="forum/:id" element={<ForumDetail />} />
