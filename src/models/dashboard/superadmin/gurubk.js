@@ -56,3 +56,38 @@ export const guruBKData = [
     email: "budi.bk@Gmail.com"
   }
 ];
+
+let dataStore = [...guruBKData];
+
+export const getAll = () => {
+  return [...dataStore];
+};
+
+export const getById = (id) => {
+  return dataStore.find(guru => guru.id === id);
+};
+
+export const add = (newGuru) => {
+  const id = dataStore.length > 0 ? Math.max(...dataStore.map(g => g.id)) + 1 : 1;
+  const guru = { id, ...newGuru };
+  dataStore.push(guru);
+  return guru;
+};
+
+export const update = (id, updatedData) => {
+  const index = dataStore.findIndex(guru => guru.id === id);
+  if (index !== -1) {
+    dataStore[index] = { ...dataStore[index], ...updatedData };
+    return dataStore[index];
+  }
+  return null;
+};
+
+export const remove = (id) => {
+  const index = dataStore.findIndex(guru => guru.id === id);
+  if (index !== -1) {
+    dataStore.splice(index, 1);
+    return true;
+  }
+  return false;
+};

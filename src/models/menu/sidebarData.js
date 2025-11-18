@@ -3,6 +3,7 @@ export const sideBarData = [
   { 
     name: "Dashboard", 
     path: "/dashboard/superadmin",
+    breadcrumbKey: "dashboard-superadmin",
     roles: ["superadmin"]
   },
   { 
@@ -20,6 +21,7 @@ export const sideBarData = [
   { 
     name: "Dashboard", 
     path: "/dashboard/gurubk",
+    breadcrumbKey: "dashboard-gurubk",
     roles: ["gurubk"]
   },
   { 
@@ -42,6 +44,7 @@ export const sideBarData = [
   { 
     name: "Konsultasi", 
     path: "/dashboard/konsultasi",
+    breadcrumbKey: "dashboard-siswa",
     roles: ["siswa"]
   },
   { 

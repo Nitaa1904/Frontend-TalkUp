@@ -3,10 +3,10 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 const DashboardLayout = () => {
-  const userRole = "gurubk"; // api role
+  const userRole = "siswa"; // api role
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen">
       <Sidebar userRole={userRole} />
       <div className="flex-1 flex flex-col">
         <Header />

@@ -70,6 +70,67 @@ const customTheme = createTheme({
     },
   },
 
+  // table
+  table: {
+    root: {
+      base: "w-full text-left text-sm",
+      shadow: "",
+      wrapper: "relative bg-white rounded-lg border border-gray-200 overflow-hidden"
+    },
+    body: {
+      base: "group/body divide-y divide-gray-200",
+      cell: {
+        base: "px-6 py-4 text-sm text-gray-900"
+      }
+    },
+  head: {
+    base: "group/head",
+    cell: {
+      base: "!bg-[#F1F4F9] px-6 py-3 text-left text-sm font-medium !text-gray-600 uppercase"
+    }
+  },
+    row: {
+      base: "group/row bg-white",
+      hovered: "hover:!bg-gray-50/50",
+      striped: ""
+    }
+  },
+  
+  // sidebar
+  sidebar: {
+    root: {
+      base: "h-full !bg-white",
+      inner: "h-full overflow-y-auto overflow-x-hidden !bg-white px-3 py-4"
+    },
+    collapse: {
+      button: "group flex w-full items-center rounded-lg p-2 text-base font-normal !text-gray-900 transition duration-75 hover:!bg-[#9B2C2C]/10 hover:!text-[#9B2C2C]",
+      icon: {
+        base: "h-6 w-6 !text-gray-500 transition duration-75 group-hover:!text-[#9B2C2C]",
+        open: {
+          off: "",
+          on: "!text-gray-900"
+        }
+      },
+    },
+    item: {
+      base: "flex items-center rounded-lg p-2 text-base font-normal !text-gray-900 hover:!bg-[#9B2C2C]/10 hover:!text-[#9B2C2C] group transition-colors duration-150",
+      active: "!bg-[#9B2C2C] !text-white",
+      icon: {
+        base: "h-6 w-6 flex-shrink-0 !text-gray-500 transition duration-75 group-hover:!text-[#9B2C2C]",
+        active: "!text-white"
+      },
+      content: {
+        base: "flex-1 whitespace-nowrap px-3"
+      }
+    },
+    items: {
+      base: "!bg-white"
+    },
+    itemGroup: {
+      base: "space-y-2 !bg-white !border-0"
+    }
+  },
+
   // navbar
   navbar: {
     root: {
