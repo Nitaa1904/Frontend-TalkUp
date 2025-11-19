@@ -263,6 +263,9 @@ export default function Guru_BK() {
           </div>
         </div>
       </div>
-    </>
+
+      <JadwalKonselingTable />
+      <RiwayatPengajuanTable />
+    </div>
   );
 }

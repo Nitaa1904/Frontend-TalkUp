@@ -15,11 +15,15 @@ import DaftarGuruBK from "./view/pages/dashboard/superadmin/GuruBK";
 import DaftarSiswa from "./view/pages/dashboard/superadmin/Siswa";
 import GuruBK from "./view/pages/dashboard/gurubk/GuruBK";
 import IndexPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/IndexPermintaan";
-import DetailPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/DetailPermintaan";
+import DetailPermintaan from "./view/pages/dashboard/gurubk/permintaanKonseling/Detail";
 import IndexJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/IndexJadwal";
-import DetailJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/DetailJadwal";
+import DetailJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/Detail";
+import EditJadwal from "./view/pages/dashboard/gurubk/jadwalKonseling/Edit";
 import Konsultasi from "./view/pages/dashboard/siswa/Konsultasi";
 import RiwayatKonseling from "./view/pages/dashboard/siswa/RiwayatKonseling";
+import IndexRiwayat from "./view/pages/dashboard/gurubk/riwayatKonseling/IndexRiwayat";
+import DetailRiwayat from "./view/pages/dashboard/gurubk/riwayatKonseling/Detail";
+import EditRiwayat from "./view/pages/dashboard/gurubk/riwayatKonseling/Edit";
 import KonsultasiDetail from "./view/pages/dashboard/siswa/KonsultasiDetail";
 import AddGuruBK from "./view/pages/dashboard/superadmin/gurubk/add";
 import EditGuruBK from "./view/pages/dashboard/superadmin/gurubk/edit";
@@ -64,6 +68,11 @@ const App = () => {
             <Route path="permintaankonseling/:id" element={<DetailPermintaan />} />
             <Route path="jadwalkonseling" element={<IndexJadwal />} />
             <Route path="jadwalkonseling/:id" element={<DetailJadwal />} />
+            <Route path="jadwalkonseling/edit/:id" element={<EditJadwal />} />
+            <Route path="riwayatkonseling" element={<IndexRiwayat />} />
+            <Route path="riwayatkonseling/:id" element={<DetailRiwayat />} />
+            <Route path="riwayatkonseling/detail/:id" element={<DetailRiwayat />} />
+            <Route path="riwayatkonseling/edit/:id" element={<EditRiwayat />} />
             
             <Route path="konsultasi" element={<Konsultasi />} />
             <Route path="riwayat" element={<RiwayatKonseling />} />

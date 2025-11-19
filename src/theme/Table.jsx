@@ -11,6 +11,7 @@ const CustomTable = ({
   actions,
   itemsPerPageOptions = [5, 10, 20],
   defaultItemsPerPage = 5,
+  showAddButton = true,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage);
@@ -63,13 +64,9 @@ const CustomTable = ({
 
   return (
     <div>
-      {(title || subtitle) && (
-        <>
-          {title && <h1 className="text-2xl font-bold mb-2">{title}</h1>}
-          {subtitle && <p className="text-gray-600 mb-6">{subtitle}</p>}
-        </>
-      )}
-      {addButtonText && onAddClick && (
+      {subtitle && <p className="text-gray-600 mb-6">{subtitle}</p>}
+      
+      {showAddButton && addButtonText && onAddClick && (
         <button
           onClick={onAddClick}
           className="text-red-700 font-medium mb-6 hover:text-red-800 cursor-pointer"

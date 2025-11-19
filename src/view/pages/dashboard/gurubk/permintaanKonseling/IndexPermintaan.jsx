@@ -160,6 +160,8 @@ export default function Index() {
           </div>
         </div>
       </div>
-    </>
+
+      <RiwayatPengajuanTable />
+    </div>
   );
 }

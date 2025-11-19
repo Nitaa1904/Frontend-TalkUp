@@ -70,6 +70,32 @@ const customTheme = createTheme({
     },
   },
 
+  // textarea
+  textarea: {
+    base: "w-full px-4 py-2.5 text-sm rounded-2xl border border-border bg-white text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-focus focus:border-focus focus:outline-none resize-y min-h-[100px]",
+    colors: {
+      primary: "border-border focus:ring-focus focus:border-focus",
+      error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+    },
+  },
+
+  // select
+  select: {
+    field: {
+      select: {
+        base: "w-full px-4 py-2.5 text-sm rounded-full border border-gray-200 bg-white text-gray-700 focus:ring-1 focus:ring-gray-200 focus:border-gray-300 focus:outline-none appearance-none cursor-pointer [&>option]:bg-white [&>option]:text-gray-900 [&>option:checked]:bg-gray-100 [&>option:checked]:text-gray-900",
+        colors: {
+          primary: "border-gray-200 focus:!ring-gray-200 focus:!border-gray-300",
+          error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+        },
+        sizes: {
+          sm: "text-sm py-2",
+          md: "text-base py-2.5",
+        },
+      },
+    },
+  },
+
   // table
   table: {
     root: {
@@ -95,12 +121,12 @@ const customTheme = createTheme({
       striped: ""
     }
   },
-  
+
   // sidebar
   sidebar: {
     root: {
-      base: "h-full !bg-white",
-      inner: "h-full overflow-y-auto overflow-x-hidden !bg-white px-3 py-4"
+      base: "!bg-white",
+      inner: "h-full overflow-hidden !bg-white px-3 pt-0 pb-4"
     },
     collapse: {
       button: "group flex w-full items-center rounded-lg p-2 text-base font-normal !text-gray-900 transition duration-75 hover:!bg-[#9B2C2C]/10 hover:!text-[#9B2C2C]",
@@ -130,7 +156,7 @@ const customTheme = createTheme({
       base: "space-y-2 !bg-white !border-0"
     }
   },
-
+  
   // navbar
   navbar: {
     root: {

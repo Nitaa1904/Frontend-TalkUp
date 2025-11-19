@@ -14,19 +14,24 @@ const Breadcrumb = () => {
     
     for (let i = 0; i < pathnames.length; i++) {
       const segment = pathnames[i];
-      
-      if (isNumeric(segment)) continue;
-      
       if (segment === "dashboard") continue;
       
       if (segment === "superadmin") {
-        const hasSubMenu = pathnames.includes("daftar-guru-bk") || 
-                          pathnames.includes("daftar-siswa");
+        const hasSubMenu = pathnames.includes("daftar-guru-bk") || pathnames.includes("daftar-siswa");
         
         if (!hasSubMenu) {
           filtered.push("dashboard");
         }
         continue;
+      }
+      if (isNumeric(segment)) {
+        const prevSegment = pathnames[i - 1];
+        if (prevSegment === "view" || prevSegment === "edit" || prevSegment === "add") {
+          continue;
+        } else {
+          filtered.push("view");
+          continue;
+        }
       }
       
       filtered.push(segment);
@@ -55,9 +60,20 @@ const Breadcrumb = () => {
       return;
     }
     
+    if (clickedSegment === "konsultasi") {
+      navigate("/dashboard/konsultasi");
+      return;
+    }
+    
+    if (clickedSegment === "riwayat") {
+      navigate("/dashboard/riwayat");
+      return;
+    }
     const originalIndex = pathnames.indexOf(clickedSegment);
-    const path = `/${pathnames.slice(0, originalIndex + 1).join("/")}`;
-    navigate(path);
+    if (originalIndex !== -1) {
+      const path = `/${pathnames.slice(0, originalIndex + 1).join("/")}`;
+      navigate(path);
+    }
   };
 
   return (

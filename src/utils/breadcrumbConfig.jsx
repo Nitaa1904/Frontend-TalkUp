@@ -11,7 +11,7 @@ const generateBreadcrumbMap = () => {
     jadwalkonseling: "Jadwal Konseling",
     riwayatkonseling: "Riwayat Konseling",
     konsultasi: "Konsultasi",
-    riwayat: "Riwayat",
+    riwayat: "Riwayat Konseling",
     gurubk: "Dashboard Guru BK",
   };
   
