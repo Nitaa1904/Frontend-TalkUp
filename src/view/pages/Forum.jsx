@@ -1,10 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import SearchInput from "../../theme/searchInput";
 import FilterDropdown from "../../theme/FilterDropdown";
 import DiscussionCard from "../../theme/DiscussionCard";
 import { useForumPresenter } from "../../presenters/forum/forum-presenter";
-import { discussionData } from "../../models/forum/discussion";
+import axios from "axios";
 
 function Forum() {
   const {
@@ -16,6 +17,37 @@ function Forum() {
     handleFilterChange,
   } = useForumPresenter();
 
+  const [discussionData, setDiscussionData] = useState([]);
+  const [page] = useState(1);
+  const [limit] = useState(10);
+
+  const fetchDiscussions = async () => {
+    try {
+      const res = await axios.get("http://40.117.43.104/api/v1/diskusi", {
+        params: {
+          page,
+          limit,
+          keyword: searchQuery || "",
+          sort: filter || "terbaru",
+        },
+      });
+
+      console.log("HASIL DARI API:", res.data.data);
+      setDiscussionData(res.data.data);
+    } catch (err) {
+      console.error("ERROR API:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchDiscussions();
+  }, []);
+
+  useEffect(() => {
+    fetchDiscussions();
+  }, [searchQuery, filter]);
+
+  
   return (
     <section className="bg-white py-12">
       <div className="w-full max-w-screen-xl mx-auto px-4">
@@ -24,7 +56,8 @@ function Forum() {
             Ruang Cerita
           </h1>
           <p className="text-gray-600 leading-relaxed">
-            Ruang aman untuk saling berbagi cerita, pengalaman, dan tumbuh bersama.
+            Ruang aman untuk saling berbagi cerita, pengalaman, dan tumbuh
+            bersama.
           </p>
         </div>
 
@@ -56,7 +89,10 @@ function Forum() {
 
         <div className="space-y-4">
           {discussionData.map((discussion) => (
-            <DiscussionCard key={discussion.id} discussion={discussion} />
+            <DiscussionCard
+              key={discussion.id_diskusi}
+              discussion={discussion}
+            />
           ))}
         </div>
       </div>

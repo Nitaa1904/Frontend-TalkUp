@@ -25,14 +25,14 @@ const ReplyItem = ({
           </span>
         </div>
 
-        {reply.title && (
+        {reply.judul && (
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            {reply.title}
+            {reply.judul}
           </h3>
         )}
 
         <p className={`text-gray-700 leading-relaxed mb-3 ${textSize}`}>
-          {reply.content}
+          {reply.konten}
         </p>
 
         {showReplyButton && (

@@ -14,6 +14,7 @@ function ForumNew() {
     setIdentity,
     handleSubmit,
     handleCancel,
+    loading
   } = useForumNewPresenter();
 
   return (
@@ -45,6 +46,7 @@ function ForumNew() {
                   Judul Diskusi
                 </label>
                 <input
+                  name="judul"
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -58,6 +60,7 @@ function ForumNew() {
                   Konten Diskusi
                 </label>
                 <textarea
+                  name="konten"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Ketik disini..."
@@ -74,7 +77,7 @@ function ForumNew() {
                   Batal
                 </button>
                 <Button color="primary" size="md" onClick={handleSubmit}>
-                  Post
+                  {loading ? "Posting..." : "Post"}
                 </Button>
               </div>
             </div>

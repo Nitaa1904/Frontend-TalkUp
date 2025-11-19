@@ -1,23 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EyeOutlined } from "@ant-design/icons";
-import { historyPengajuan } from "../../../../../models/dashboard/siswa/historyPengajuan";
+import axios from "axios";
 
 export default function Index() {
+  const [historyPengajuan, setHistoryPengajuan] = useState([]);
   const [currentHistoryPage, setCurrentHistoryPage] = useState(1);
   const itemsPerPage = 5;
   const totalHistoryPages = Math.ceil(historyPengajuan.length / itemsPerPage);
 
   const formatTanggal = (tanggal) => {
     if (!tanggal) return "-";
-    const [day, month, year] = tanggal.split("-");
-    const date = new Date(`${year}-${month}-${day}`);
+    const date = new Date(tanggal);
     return new Intl.DateTimeFormat("id-ID", {
       day: "numeric",
       month: "long",
       year: "numeric",
     }).format(date);
   };
+
+  const fetchDashboard = async () => {
+    try {
+      const response = await axios.get(
+        "http://40.117.43.104/api/v1/dashboard/guru",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const data = response.data.data;
+
+      setHistoryPengajuan(data.pengajuan_menunggu || []);
+    } catch (error) {
+      console.error("Gagal mengambil data :", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
 
   const startHistoryIndex = (currentHistoryPage - 1) * itemsPerPage;
   const endHistoryIndex = startHistoryIndex + itemsPerPage;
@@ -72,9 +95,9 @@ export default function Index() {
                   className="border-b border-b-gray-300 hover:bg-gray-50 text-sm"
                 >
                   <td className="p-3">{startHistoryIndex + index + 1}</td>
-                  <td className="p-3">{formatTanggal(item.tanggal)}</td>
-                  <td className="p-3">{item.namaSiswa}</td>
-                  <td className="p-3">{item.jenisKonseling}</td>
+                  <td className="p-3">{formatTanggal(item.tgl_pengajuan)}</td>
+                  <td className="p-3">{item.siswa?.nama_lengkap}</td>
+                  <td className="p-3">{item.topik_konseling}</td>
                   <td className="p-3">
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(

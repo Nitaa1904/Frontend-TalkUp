@@ -2,13 +2,53 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, TextInput } from "flowbite-react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+import axios from "axios";
 
-export default function Login() {
-  const [showPassword, setShowPassword] = useState("");
+export default function Login() { 
+  const [showPassword, setShowPassword] = useState(false);
   const inputType = showPassword ? "text" : "password";
 
   const toggleVisibility = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://40.117.43.104/api/v1/auth/login",
+        form,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const token = response.data.token;
+
+      if (!token) {
+        alert("Token tidak ditemukan di response!");
+        return;
+      }
+
+      localStorage.setItem("token", token);
+
+      alert("Login berhasil!");
+      console.log("Token:", token);
+
+    } catch (err) {
+      console.error(err.response?.data || err);
+      alert("Login gagal! Periksa email atau password.");
+    }
   };
 
   const EyeIcon = showPassword ? EyeInvisibleOutlined : EyeOutlined;
@@ -36,17 +76,23 @@ export default function Login() {
               belajar, pribadi, dan karier.
             </p>
           </div>
-          <form action="" className="flex flex-col gap-4 mt-4">
+          <form
+            action=""
+            className="flex flex-col gap-4 mt-4"
+            onSubmit={handleSubmit}
+          >
             <div className="w-full">
               <label htmlFor="email" className="block mb-2 font-medium" />
               Email
               <label />
               <TextInput
+                name="email"
                 color={"primary"}
                 type="email"
-                placeholder="email@student.smktelkom-pwt.sch.id"
+                placeholder="email@gmail.com"
                 className=""
                 required
+                onChange={handleChange}
               />
             </div>
             <div className="w-full">
@@ -55,11 +101,13 @@ export default function Login() {
               <label />
               <div className="relative">
                 <TextInput
+                  name="password"
                   color={"primary"}
                   type={inputType}
                   placeholder="password"
                   className=""
                   required
+                  onChange={handleChange}
                 />
                 <div
                   className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
