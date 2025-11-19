@@ -1,0 +1,51 @@
+export const historyPengajuan = [
+  {
+    id: 1,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Menunggu",
+  },
+  {
+    id: 2,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Menunggu",
+  },
+  {
+    id: 3,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    id: 4,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    id: 5,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Sulaiman",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+  {
+    id: 6,
+    tanggal: "12-12-2023",
+    namaSiswa: "Ahmad Mamad",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Menunggu",
+  },
+  {
+    id: 7,
+    tanggal: "12-12-2023",
+    namaSiswa: "John Dalton",
+    jenisKonseling: "Konseling Pribadi",
+    status: "Selesai",
+  },
+];

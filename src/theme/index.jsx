@@ -1,6 +1,31 @@
 import { createTheme } from "flowbite-react";
 
 const customTheme = createTheme({
+  // avatar
+  avatar: {
+    root: {
+      base: "flex justify-center items-center space-x-4 rounded",
+      bordered: "p-1 ring-2",
+      rounded: "rounded-full",
+      color: {
+        primary: "ring-black bg-black",
+        secondary: "ring-gray-800 bg-white",
+      },
+      img: {
+        off: "relative overflow-hidden bg-black",
+        on: "rounded-full",
+        placeholder: "absolute w-auto h-auto text-white -bottom-1",
+      },
+      size: {
+        xs: "w-6 h-6",
+        sm: "w-8 h-8",
+        md: "w-10 h-10",
+        lg: "w-12 h-12",
+        xl: "w-16 h-16",
+      },
+    },
+  },
+  
   // button
   button: {
     base: "font-medium text-center transition-colors inline-block",
@@ -30,23 +55,108 @@ const customTheme = createTheme({
 
   // text input
   textInput: {
-    base: "block w-full",
     field: {
-      base: "rounded-lg border",
       input: {
-        base: "px-3 py-2",
-        sizes: {
-          sm: "text-sm",
-          md: "text-base",
-        },
+        base: "w-full px-4 py-2.5 text-sm rounded-full border border-border bg-white text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-focus focus:border-focus focus:outline-none",
         colors: {
-          primary: "border-gray-50 bg-white",
-          error: "border-red-500 bg-red-50",
+          primary: "border-border focus:ring-focus focus:border-focus",
+          error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+        },
+        sizes: {
+          sm: "text-sm py-2",
+          md: "text-base py-2.5",
         },
       },
     },
   },
 
+  // textarea
+  textarea: {
+    base: "w-full px-4 py-2.5 text-sm rounded-2xl border border-border bg-white text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-focus focus:border-focus focus:outline-none resize-y min-h-[100px]",
+    colors: {
+      primary: "border-border focus:ring-focus focus:border-focus",
+      error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+    },
+  },
+
+  // select
+  select: {
+    field: {
+      select: {
+        base: "w-full px-4 py-2.5 text-sm rounded-full border border-gray-200 bg-white text-gray-700 focus:ring-1 focus:ring-gray-200 focus:border-gray-300 focus:outline-none appearance-none cursor-pointer [&>option]:bg-white [&>option]:text-gray-900 [&>option:checked]:bg-gray-100 [&>option:checked]:text-gray-900",
+        colors: {
+          primary: "border-gray-200 focus:!ring-gray-200 focus:!border-gray-300",
+          error: "border-red-500 bg-red-50 focus:ring-red-500 focus:border-red-500",
+        },
+        sizes: {
+          sm: "text-sm py-2",
+          md: "text-base py-2.5",
+        },
+      },
+    },
+  },
+
+  // table
+  table: {
+    root: {
+      base: "w-full text-left text-sm",
+      shadow: "",
+      wrapper: "relative bg-white rounded-lg border border-gray-200 overflow-hidden"
+    },
+    body: {
+      base: "group/body divide-y divide-gray-200",
+      cell: {
+        base: "px-6 py-4 text-sm text-gray-900"
+      }
+    },
+  head: {
+    base: "group/head",
+    cell: {
+      base: "!bg-[#F1F4F9] px-6 py-3 text-left text-sm font-medium !text-gray-600 uppercase"
+    }
+  },
+    row: {
+      base: "group/row bg-white",
+      hovered: "hover:!bg-gray-50/50",
+      striped: ""
+    }
+  },
+
+  // sidebar
+  sidebar: {
+    root: {
+      base: "!bg-white",
+      inner: "h-full overflow-hidden !bg-white px-3 pt-0 pb-4"
+    },
+    collapse: {
+      button: "group flex w-full items-center rounded-lg p-2 text-base font-normal !text-gray-900 transition duration-75 hover:!bg-[#9B2C2C]/10 hover:!text-[#9B2C2C]",
+      icon: {
+        base: "h-6 w-6 !text-gray-500 transition duration-75 group-hover:!text-[#9B2C2C]",
+        open: {
+          off: "",
+          on: "!text-gray-900"
+        }
+      },
+    },
+    item: {
+      base: "flex items-center rounded-lg p-2 text-base font-normal !text-gray-900 hover:!bg-[#9B2C2C]/10 hover:!text-[#9B2C2C] group transition-colors duration-150",
+      active: "!bg-[#9B2C2C] !text-white",
+      icon: {
+        base: "h-6 w-6 flex-shrink-0 !text-gray-500 transition duration-75 group-hover:!text-[#9B2C2C]",
+        active: "!text-white"
+      },
+      content: {
+        base: "flex-1 whitespace-nowrap px-3"
+      }
+    },
+    items: {
+      base: "!bg-white"
+    },
+    itemGroup: {
+      base: "space-y-2 !bg-white !border-0"
+    }
+  },
+  
   // navbar
   navbar: {
     root: {
