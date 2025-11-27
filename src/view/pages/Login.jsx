@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, TextInput } from "flowbite-react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,15 +28,15 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://40.117.43.104/api/v1/auth/login",
+        `${API_URL}/auth/login`,
         {
           email: form.email.trim().toLowerCase(),
-          password: form.password
+          password: form.password,
         },
         {
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
 
@@ -43,7 +44,7 @@ export default function Login() {
 
       // PERBAIKAN: Sesuaikan dengan struktur response API
       const { token, data: user } = response.data;
-      
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("userRole", user.role);
@@ -137,10 +138,10 @@ export default function Login() {
               </div>
             </div>
 
-            <Button 
-              color="primary" 
-              size="md" 
-              type="submit" 
+            <Button
+              color="primary"
+              size="md"
+              type="submit"
               className="mt-4"
               disabled={loading}
             >

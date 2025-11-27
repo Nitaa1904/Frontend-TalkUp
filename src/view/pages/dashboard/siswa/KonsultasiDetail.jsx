@@ -6,6 +6,7 @@ import DetailPengajuan from "../../../components/layout/konsultasi/siswa/DetailP
 import DetailKonseling from "../../../components/layout/konsultasi/siswa/DetailKonseling";
 import CatatanKonseling from "../../../components/layout/konsultasi/siswa/CatatanKonseling";
 import { Button } from "flowbite-react";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const KonsultasiDetail = () => {
   const { id } = useParams();
@@ -21,19 +22,16 @@ const KonsultasiDetail = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
-      const response = await axios.get(
-        `http://40.117.43.104/api/v1/konseling/riwayat/${id}`,
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+
+      const response = await axios.get(`${API_URL}/konseling/riwayat/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("API Response:", response.data);
-      
+
       const item = response.data.data;
       const transformedData = {
         id: item.id_konseling,
@@ -52,7 +50,7 @@ const KonsultasiDetail = () => {
         catatan_siswa: item.catatan_siswa || "-",
         catatan_guru_bk: item.catatan_guru_bk || "-",
       };
-      
+
       setData(transformedData);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -87,10 +85,10 @@ const KonsultasiDetail = () => {
         <Breadcrumb />
         <div className="bg-white p-6 rounded-lg border border-gray-200 text-center">
           <p className="text-gray-500">Data tidak ditemukan.</p>
-          <Button 
+          <Button
             as={Link}
             to="/dashboard/riwayat"
-            color="primary" 
+            color="primary"
             size="md"
             className="mt-4"
           >
@@ -121,10 +119,10 @@ const KonsultasiDetail = () => {
 
       {data.status === "Selesai" && <CatatanKonseling data={data} />}
 
-      <Button 
+      <Button
         as={Link}
         to="/dashboard/riwayat"
-        color="primary" 
+        color="primary"
         size="md"
         className="mt-4"
       >

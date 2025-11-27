@@ -5,6 +5,7 @@ import CustomTable from "../../../../../theme/Table";
 import { createTableActions } from "../../../../../utils/tableActions";
 import DeleteConfirmModal from "../../../../components/modals/DeleteConfirmModal";
 import StatusBadge from "../../../../../theme/StatusBadge";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function JadwalKonselingTable() {
   const navigate = useNavigate();
@@ -21,16 +22,13 @@ export default function JadwalKonselingTable() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
-      const response = await axios.get(
-        "http://40.117.43.104/api/v1/konseling/jadwal",
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+
+      const response = await axios.get(`${API_URL}/konseling/jadwal`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("API Response:", response.data);
       const transformedData = response.data.data.map((item) => ({
@@ -44,20 +42,18 @@ export default function JadwalKonselingTable() {
         status: item.status || "Menunggu",
         lokasi: item.detail_konseling?.link_atau_ruang || "-",
       }));
-      
+
       setData(transformedData);
     } catch (err) {
       console.error("Error fetching data:", err);
       if (err.response?.status === 404) {
         setData([]);
-      } 
-      else if (err.response?.status === 401) {
+      } else if (err.response?.status === 401) {
         alert("Session expired. Please login again.");
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         navigate("/login");
-      } 
-      else {
+      } else {
         setData([]);
       }
     } finally {
@@ -67,13 +63,13 @@ export default function JadwalKonselingTable() {
 
   const formatTanggal = (tanggal) => {
     if (!tanggal) return "-";
-    
+
     const date = new Date(tanggal);
-    
+
     if (isNaN(date.getTime())) {
       return tanggal;
     }
-    
+
     return new Intl.DateTimeFormat("id-ID", {
       day: "numeric",
       month: "long",
@@ -82,21 +78,21 @@ export default function JadwalKonselingTable() {
   };
 
   const columns = [
-    { 
-      header: "Tanggal", 
+    {
+      header: "Tanggal",
       key: "tanggal",
-      render: (value) => formatTanggal(value)
+      render: (value) => formatTanggal(value),
     },
-    { 
-      header: "Waktu", 
-      key: "waktu" 
+    {
+      header: "Waktu",
+      key: "waktu",
     },
     { header: "Nama Siswa", key: "namaSiswa" },
     { header: "Jenis Konseling", key: "jenisKonseling" },
     {
       header: "Status",
       key: "status",
-      render: (value) => <StatusBadge status={value} showIcon={false} />
+      render: (value) => <StatusBadge status={value} showIcon={false} />,
     },
   ];
 
@@ -116,15 +112,12 @@ export default function JadwalKonselingTable() {
   const handleConfirmDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://40.117.43.104/api/v1/konseling/jadwal/${deleteId}`,
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      await axios.delete(`${API_URL}/konseling/jadwal/${deleteId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       alert("Riwayat konseling berhasil dihapus");
       fetchData();

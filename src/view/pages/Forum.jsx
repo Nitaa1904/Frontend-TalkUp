@@ -5,6 +5,7 @@ import SearchInput from "../../theme/searchInput";
 import FilterDropdown from "../../theme/FilterDropdown";
 import DiscussionCard from "../../theme/DiscussionCard";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 function Forum() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,7 +14,7 @@ function Forum() {
   const filterOptions = [
     { value: "semua", label: "Lihat semua diskusi" },
     { value: "terbaru", label: "Diskusi terbaru" },
-    { value: "terpopuler", label: "Diskusi terpopuler" }
+    { value: "terpopuler", label: "Diskusi terpopuler" },
   ];
 
   const handleSearch = () => {
@@ -30,7 +31,7 @@ function Forum() {
 
   const fetchDiscussions = async () => {
     try {
-      const res = await axios.get("http://40.117.43.104/api/v1/diskusi", {
+      const res = await axios.get(`${API_URL}/diskusi`, {
         params: {
           page,
           limit,
@@ -54,7 +55,6 @@ function Forum() {
     fetchDiscussions();
   }, [searchQuery, filter]);
 
-  
   return (
     <section className="bg-white py-12">
       <div className="w-full max-w-screen-xl mx-auto px-4">
@@ -89,7 +89,12 @@ function Forum() {
             <Button as={Link} to="/forum/new" color="primary" size="md">
               Buat Diskusi Baru
             </Button>
-            <Button as={Link} to="/dashboard/konsultasi" color="primary" size="md">
+            <Button
+              as={Link}
+              to="/dashboard/konsultasi"
+              color="primary"
+              size="md"
+            >
               Ajukan Konseling
             </Button>
           </div>

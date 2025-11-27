@@ -4,6 +4,7 @@ import axios from "axios";
 import CustomTable from "../../../../theme/Table";
 import { createTableActions } from "../../../../utils/tableActions";
 import StatusBadge from "../../../../theme/StatusBadge";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const RiwayatKonseling = () => {
   const navigate = useNavigate();
@@ -18,19 +19,16 @@ const RiwayatKonseling = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
-      const response = await axios.get(
-        "http://40.117.43.104/api/v1/konseling/riwayat",
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+
+      const response = await axios.get(`${API_URL}/konseling/riwayat`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("API Response:", response.data);
-      
+
       if (response.data.data && response.data.data.length > 0) {
         const transformedData = response.data.data.map((item) => ({
           id: item.id_konseling,
@@ -66,10 +64,10 @@ const RiwayatKonseling = () => {
     { header: "Guru BK", key: "guru_bk" },
     { header: "Jenis Sesi", key: "jenis_sesi" },
     { header: "Topik", key: "topik" },
-    { 
-      header: "Status", 
+    {
+      header: "Status",
       key: "status",
-      render: (value) => <StatusBadge status={value} showIcon={false} />
+      render: (value) => <StatusBadge status={value} showIcon={false} />,
     },
   ];
 

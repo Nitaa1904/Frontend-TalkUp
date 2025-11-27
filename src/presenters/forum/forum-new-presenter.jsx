@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useForumNewPresenter = () => {
   const navigate = useNavigate();
-  
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [identity, setIdentity] = useState("anonim");
@@ -30,32 +31,28 @@ export const useForumNewPresenter = () => {
 
     try {
       const token = localStorage.getItem("token");
-      
+
       const payload = {
         judul: title.trim(),
         konten: content.trim(),
-        is_anonim: identity === "anonim"
+        is_anonim: identity === "anonim",
       };
 
       console.log("Payload yang dikirim:", payload);
 
-      const res = await axios.post(
-        "http://40.117.43.104/api/v1/diskusi",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
-        }
-      );
+      const res = await axios.post(`${API_URL}/diskusi`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("HASIL POST:", res.data);
       alert("Diskusi berhasil dibuat!");
       navigate("/forum");
     } catch (err) {
       console.error("ERROR TAMBAH DISKUSI:", err.response?.data);
-      
+
       if (err.response?.data?.errors) {
         alert(`Gagal: ${err.response.data.errors.join(", ")}`);
       } else if (err.response?.data?.message) {

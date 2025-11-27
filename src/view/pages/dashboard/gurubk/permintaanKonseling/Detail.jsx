@@ -4,6 +4,7 @@ import axios from "axios";
 import Breadcrumb from "../../../../../view/components/layout/Breadcrumb";
 import DetailPermintaanKonseling from "../../../../components/layout/konsultasi/gurubk/DetailPermintaan";
 import FormBalasanKonseling from "../../../../components/layout/konsultasi/gurubk/FormBalasan";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Detail() {
   const navigate = useNavigate();
@@ -19,16 +20,13 @@ export default function Detail() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
-      const response = await axios.get(
-        `http://40.117.43.104/api/v1/konseling/${id}`,
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+
+      const response = await axios.get(`${API_URL}/konseling/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("API Response:", response.data);
       const item = response.data.data;
@@ -43,7 +41,7 @@ export default function Detail() {
         deskripsi: item.deskripsi_masalah || "-",
         status: item.status || "Menunggu",
       };
-      
+
       setData(transformedData);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -61,17 +59,13 @@ export default function Detail() {
   const handleSubmit = async (formData) => {
     try {
       const token = localStorage.getItem("token");
-      
-      await axios.put(
-        `http://40.117.43.104/api/v1/konseling/${id}`,
-        formData,
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+
+      await axios.put(`${API_URL}/konseling/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       alert("Balasan berhasil dikirim");
       if (formData.status === "Disetujui") {
@@ -117,7 +111,7 @@ export default function Detail() {
       </div>
 
       <DetailPermintaanKonseling data={data} />
-      
+
       <FormBalasanKonseling onSubmit={handleSubmit} onCancel={handleCancel} />
     </div>
   );

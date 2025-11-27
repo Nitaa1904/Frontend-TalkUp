@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, TextInput } from "flowbite-react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    
+
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
     }
@@ -80,20 +81,16 @@ export default function Register() {
         nama_lengkap: form.nama_lengkap.trim(),
         kelas: form.kelas.trim(),
         email: form.email.trim().toLowerCase(),
-        password: form.password
+        password: form.password,
       };
 
       console.log("Payload yang dikirim:", payload);
 
-      const response = await axios.post(
-        "http://40.117.43.104/api/v1/auth/register",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      const response = await axios.post(`${API_URL}/auth/register`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("Response sukses:", response.data);
       alert("Registrasi berhasil! Silakan login.");
@@ -101,10 +98,10 @@ export default function Register() {
     } catch (err) {
       console.error("Error status:", err.response?.status);
       console.error("Error response data:", err.response?.data);
-      
+
       if (err.response?.status === 400) {
         const apiErrors = err.response?.data?.errors;
-        
+
         if (Array.isArray(apiErrors)) {
           const errorMap = {};
           apiErrors.forEach((error) => {
@@ -121,13 +118,18 @@ export default function Register() {
           setErrors(errorMap);
           alert("Validasi input gagal. Periksa form Anda.");
         } else {
-          alert(err.response?.data?.message || "Data tidak valid. Periksa kembali form Anda.");
+          alert(
+            err.response?.data?.message ||
+              "Data tidak valid. Periksa kembali form Anda."
+          );
         }
       } else if (err.response?.status === 409) {
         setErrors({ email: "Email sudah terdaftar" });
         alert("Email sudah terdaftar. Gunakan email lain atau login.");
       } else {
-        alert(err.response?.data?.message || "Registrasi gagal. Silakan coba lagi.");
+        alert(
+          err.response?.data?.message || "Registrasi gagal. Silakan coba lagi."
+        );
       }
     } finally {
       setLoading(false);
@@ -174,7 +176,9 @@ export default function Register() {
                 disabled={loading}
               />
               {errors.nama_lengkap && (
-                <p className="text-red-500 text-sm mt-1">{errors.nama_lengkap}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.nama_lengkap}
+                </p>
               )}
             </div>
 
@@ -239,14 +243,15 @@ export default function Register() {
                 <p className="text-red-500 text-sm mt-1">{errors.password}</p>
               )}
               <p className="text-gray-500 text-xs mt-1">
-                Password minimal 8 karakter, mengandung huruf besar, huruf kecil, dan angka
+                Password minimal 8 karakter, mengandung huruf besar, huruf
+                kecil, dan angka
               </p>
             </div>
 
-            <Button 
-              color="primary" 
-              size="md" 
-              type="submit" 
+            <Button
+              color="primary"
+              size="md"
+              type="submit"
               className="mt-4"
               disabled={loading}
             >

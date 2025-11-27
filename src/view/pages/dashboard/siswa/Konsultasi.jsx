@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Button, TextInput, Textarea, Select } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Konsultasi = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [guruBKList, setGuruBKList] = useState([]);
   const [loadingGuru, setLoadingGuru] = useState(true);
-  
+
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
@@ -29,15 +30,12 @@ const Konsultasi = () => {
     try {
       setLoadingGuru(true);
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://40.117.43.104/api/v1/guru-bk/",
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      const response = await axios.get(`${API_URL}/guru-bk/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log("Guru BK List:", response.data);
       setGuruBKList(response.data.data || []);
     } catch (err) {
@@ -50,9 +48,9 @@ const Konsultasi = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -62,11 +60,11 @@ const Konsultasi = () => {
 
     try {
       const token = localStorage.getItem("token");
-      
+
       const payload = {
         jenis_sesi: formData.jenisSesi,
         topik_konseling: formData.topik,
-        deskripsi_masalah: formData.deskripsi
+        deskripsi_masalah: formData.deskripsi,
       };
 
       if (formData.id_guru_bk) {
@@ -75,29 +73,28 @@ const Konsultasi = () => {
 
       console.log("Payload:", payload);
 
-      const response = await axios.post(
-        "http://40.117.43.104/api/v1/konseling/",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        }
-      );
+      const response = await axios.post(`${API_URL}/konseling/`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       console.log("Response sukses:", response.data);
       alert("Konseling berhasil diajukan!");
       navigate("/dashboard/riwayat");
     } catch (err) {
       console.error("Error:", err.response?.data);
-      
+
       if (err.response?.status === 401) {
         alert("Sesi login Anda telah berakhir. Silakan login kembali.");
         localStorage.clear();
         navigate("/login");
       } else {
-        alert(err.response?.data?.message || "Gagal mengajukan konseling. Silakan coba lagi.");
+        alert(
+          err.response?.data?.message ||
+            "Gagal mengajukan konseling. Silakan coba lagi."
+        );
       }
     } finally {
       setLoading(false);
@@ -108,7 +105,8 @@ const Konsultasi = () => {
     <div>
       <h1 className="text-2xl font-bold mb-2">Konsultasi</h1>
       <p className="text-gray-600 mb-8">
-        Isi formulir di bawah untuk mengajukan permintaan konseling dengan guru BK
+        Isi formulir di bawah untuk mengajukan permintaan konseling dengan guru
+        BK
       </p>
 
       <div className="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
@@ -192,8 +190,12 @@ const Konsultasi = () => {
             </div>
 
             <div className="w-full">
-              <label htmlFor="guruBkTambahan" className="block mb-2 font-medium">
-                Guru BK Tambahan <span className="text-gray-400 font-normal">- optional</span>
+              <label
+                htmlFor="guruBkTambahan"
+                className="block mb-2 font-medium"
+              >
+                Guru BK Tambahan{" "}
+                <span className="text-gray-400 font-normal">- optional</span>
               </label>
               <Select
                 id="guruBkTambahan"
@@ -269,8 +271,8 @@ const Konsultasi = () => {
 
           <div className="mt-8 flex gap-4">
             <Button
-              color="primary" 
-              size="md" 
+              color="primary"
+              size="md"
               type="submit"
               disabled={loading || loadingGuru}
             >

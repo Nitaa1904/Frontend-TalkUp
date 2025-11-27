@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useForumDetailPresenter = (discussionId) => {
   const token = localStorage.getItem("token");
@@ -7,20 +8,16 @@ export const useForumDetailPresenter = (discussionId) => {
   const [discussion, setDiscussion] = useState(null);
   const [replies, setReplies] = useState([]);
   const [replyText, setReplyText] = useState("");
-  const [identity, setIdentity] = useState("anonim");   
+  const [identity, setIdentity] = useState("anonim");
   const [replyingTo, setReplyingTo] = useState(null);
   const [nestedReplyText, setNestedReplyText] = useState("");
   const [loading, setLoading] = useState(true);
-  
 
   const fetchDiscussionDetail = async () => {
     try {
-      const res = await axios.get(
-        `http://40.117.43.104/api/v1/diskusi/${discussionId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get(`${API_URL}/diskusi/${discussionId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const payload =
         res.data.data || res.data.diskusi || res.data.result || res.data;
@@ -39,12 +36,9 @@ export const useForumDetailPresenter = (discussionId) => {
 
   const fetchReplies = async () => {
     try {
-      const res = await axios.get(
-        `http://40.117.43.104/api/v1/balasan/${discussionId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get(`${API_URL}/balasan/${discussionId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const raw = res.data.data || [];
 
@@ -54,7 +48,7 @@ export const useForumDetailPresenter = (discussionId) => {
         konten: item.isi_balasan,
         author: item.is_anonim ? "Anonim" : item.user_detail?.nama,
         timestamp: item.created_at,
-        nestedReplies: [], 
+        nestedReplies: [],
       }));
 
       setReplies(mapped);
@@ -77,7 +71,7 @@ export const useForumDetailPresenter = (discussionId) => {
 
     try {
       await axios.post(
-        "http://40.117.43.104/api/v1/balasan/",
+        `${API_URL}/balasan/`,
         {
           id_diskusi: discussionId,
           isi_balasan: replyText,
@@ -98,7 +92,7 @@ export const useForumDetailPresenter = (discussionId) => {
     }
   };
 
-  const handleSubmitNestedReply = async (replyId) => {
+  const handleSubmitNestedReply = async () => {
     if (!nestedReplyText.trim()) return;
 
     console.warn(
