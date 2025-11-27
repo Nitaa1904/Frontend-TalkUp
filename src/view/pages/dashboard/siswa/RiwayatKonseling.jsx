@@ -20,7 +20,7 @@ const RiwayatKonseling = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(`${API_URL}/konseling/riwayat`, {
+      const response = await axios.get(`${API_URL}/konseling/riwayat/siswa`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const RiwayatKonseling = () => {
           nama: item.siswa?.nama || "-",
           kelas: item.siswa?.kelas || "-",
           guru_bk: item.guru_bk?.nama || "-",
-          jenis_sesi: item.jenis_sesi_pengajuan || "-",
+          jenis_sesi: item.jenis_sesi || "-",
           topik: item.topik_konseling || "-",
           status: item.status || "Selesai",
         }));
@@ -92,7 +92,7 @@ const RiwayatKonseling = () => {
     <div>
       <CustomTable
         title="Riwayat Konseling"
-        subtitle="Daftar riwayat konseling anda yang sudah selesai"
+        subtitle="Daftar riwayat konseling anda"
         columns={columns}
         data={data}
         actions={actions}

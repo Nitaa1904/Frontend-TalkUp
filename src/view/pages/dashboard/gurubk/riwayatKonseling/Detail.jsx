@@ -22,7 +22,8 @@ export default function DetailRiwayat() {
       <div className="flex flex-col gap-2">
         <h1 className="text-xl font-medium">Riwayat Konseling</h1>
         <h3 className="text-base">
-          Permintaan konselingmu sedang di proses. Mohon tunggu balasan dari guru BK melalui email atau halaman ini
+          Permintaan konselingmu sedang di proses. Mohon tunggu balasan dari
+          guru BK melalui email atau halaman ini
         </h3>
       </div>
 

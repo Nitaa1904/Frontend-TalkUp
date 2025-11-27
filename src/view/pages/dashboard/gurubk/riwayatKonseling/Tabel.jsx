@@ -37,7 +37,7 @@ export default function RiwayatKonselingTable() {
         namaSiswa: item.siswa?.nama_lengkap || "-",
         kelas: item.siswa?.kelas || "-",
         jenisKonseling: item.topik_konseling || "-",
-        jenisSesi: item.jenis_sesi || "-",
+        jenis_sesi: item.jenis_sesi || "-",
         status: item.status || "Selesai",
         guruBK: item.guru_bk?.nama || "-",
         hasilKonseling: item.hasil_konseling || "-",

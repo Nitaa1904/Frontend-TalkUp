@@ -23,7 +23,7 @@ const KonsultasiDetail = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(`${API_URL}/konseling/riwayat/${id}`, {
+      const response = await axios.get(`${API_URL}/konseling/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const KonsultasiDetail = () => {
       const item = response.data.data;
       const transformedData = {
         id: item.id_konseling,
-        nama: item.siswa?.nama_lengkap || "-",
+        nama: item.siswa?.nama || "-",
         email: item.siswa?.email || "-",
         kelas: item.siswa?.kelas || "-",
         guru_bk: item.guru_bk?.nama || "-",
