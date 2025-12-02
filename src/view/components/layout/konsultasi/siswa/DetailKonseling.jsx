@@ -2,12 +2,20 @@ import {
   HiOutlineUser,
   HiOutlineChatAlt2,
   HiOutlineCalendar,
+  HiOutlineClock,
 } from "react-icons/hi";
 import DetailCard from "../../../../../theme/konsultasi/DetailCard";
 
 const DetailKonseling = ({ data }) => {
-  const linkText = data.jenis_sesi === "Ruang BK" ? "Ruang BK" : data.link_meet;
-  const isClickable = data.jenis_sesi !== "Ruang BK";
+  const linkText =
+    data.jenis_sesi_final === "Tatap Muka"
+      ? "Tatap Muka"
+      : data.link_meet;
+
+  const isClickable =
+    data.jenis_sesi_final !== "Tatap Muka" &&
+    data.link_meet &&
+    data.link_meet !== "-";
 
   const handleLinkClick = () => {
     if (isClickable && data.link_meet) {
@@ -49,8 +57,15 @@ const DetailKonseling = ({ data }) => {
       icon: <HiOutlineCalendar />,
     },
     {
+      label: "Waktu Konseling",
+      value: data.waktu_mulai || "-",
+      icon: <HiOutlineClock />,
+    },
+    {
       label: "Deskripsi",
-      value: "Silahkan cek email untuk sesi konseling atau klik link pada jenis sesi.",
+      value:
+        data.deskripsi_jadwal ||
+        "Silahkan cek email untuk sesi konseling atau klik link pada jenis sesi.",
       icon: <HiOutlineChatAlt2 />,
       fullWidth: true,
     },

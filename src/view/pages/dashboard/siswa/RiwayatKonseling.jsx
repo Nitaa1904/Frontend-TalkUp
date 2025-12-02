@@ -4,6 +4,7 @@ import axios from "axios";
 import CustomTable from "../../../../theme/Table";
 import { createTableActions } from "../../../../utils/tableActions";
 import StatusBadge from "../../../../theme/StatusBadge";
+
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const RiwayatKonseling = () => {
@@ -20,33 +21,41 @@ const RiwayatKonseling = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(`${API_URL}/konseling/riwayat/siswa`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("API Response:", response.data);
+      const response = await axios.get(
+        `${API_URL}/konseling/riwayat/siswa`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.data.data && response.data.data.length > 0) {
-        const transformedData = response.data.data.map((item) => ({
-          id: item.id_konseling,
-          nama: item.siswa?.nama || "-",
-          kelas: item.siswa?.kelas || "-",
-          guru_bk: item.guru_bk?.nama || "-",
-          jenis_sesi: item.jenis_sesi || "-",
-          topik: item.topik_konseling || "-",
-          status: item.status || "Selesai",
-        }));
+        const transformedData = response.data.data.map((item) => {
+          const detail = item.detail_konseling || {};
+
+          const jenisSesi =
+            detail.jenis_sesi_final ||
+            item.jenis_sesi_pengajuan ||
+            item.jenis_sesi ||
+            "-";
+
+          return {
+            id: item.id_konseling,
+            guru_bk: item.guru_bk?.nama || "-",
+            jenis_sesi: jenisSesi,
+            topik: item.topik_konseling || "-",
+            status: item.status || "Selesai",
+          };
+        });
+
         setData(transformedData);
       } else {
         setData([]);
       }
     } catch (err) {
-      console.error("Error fetching data:", err);
       if (err.response?.status === 401) {
-        alert("Session expired. Please login again.");
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         navigate("/login");
@@ -59,8 +68,6 @@ const RiwayatKonseling = () => {
   };
 
   const columns = [
-    { header: "Nama", key: "nama" },
-    { header: "Kelas", key: "kelas" },
     { header: "Guru BK", key: "guru_bk" },
     { header: "Jenis Sesi", key: "jenis_sesi" },
     { header: "Topik", key: "topik" },
@@ -99,7 +106,7 @@ const RiwayatKonseling = () => {
         itemsPerPageOptions={[5, 10, 20]}
         defaultItemsPerPage={5}
         showAddButton={false}
-        emptyMessage="Belum ada riwayat konseling yang selesai"
+        emptyMessage="Belum ada riwayat konseling"
       />
     </div>
   );

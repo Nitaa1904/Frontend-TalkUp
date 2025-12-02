@@ -5,6 +5,7 @@ import CustomTable from "../../../../../theme/Table";
 import { createTableActions } from "../../../../../utils/tableActions";
 import DeleteConfirmModal from "../../../../components/modals/DeleteConfirmModal";
 import StatusBadge from "../../../../../theme/StatusBadge";
+
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function JadwalKonselingTable() {
@@ -30,28 +31,32 @@ export default function JadwalKonselingTable() {
         },
       });
 
-      console.log("API Response:", response.data);
-      const transformedData = response.data.data.map((item) => ({
-        id: item.id,
-        tanggal: item.detail_konseling?.tgl_sesi || "-",
-        waktu: item.detail_konseling?.jam_sesi || "-",
-        namaSiswa: item.siswa?.nama_lengkap || "-",
-        kelas: item.siswa?.kelas || "-",
-        jenisKonseling: item.topik_konseling || "-",
-        jenisSesi: item.jenis_sesi || "-",
-        status: item.status || "Menunggu",
-        lokasi: item.detail_konseling?.link_atau_ruang || "-",
-      }));
+      const transformedData = (response.data.data || []).map((item) => {
+        const detail = item.detail_konseling || {};
+
+        let jenisSesi = item.jenis_sesi || "-";
+        if (detail.link_atau_ruang) {
+          jenisSesi = detail.link_atau_ruang;
+        }
+
+        return {
+          id: item.id,
+          tanggal: detail.tgl_sesi || "-",
+          waktu: detail.jam_sesi || "-",
+          namaSiswa: item.siswa?.nama_lengkap || "-",
+          kelas: item.siswa?.kelas || "-",
+          jenisKonseling: item.topik_konseling || "-",
+          jenisSesi,
+          status: item.status || "Menunggu",
+        };
+      });
 
       setData(transformedData);
     } catch (err) {
-      console.error("Error fetching data:", err);
       if (err.response?.status === 404) {
         setData([]);
       } else if (err.response?.status === 401) {
-        alert("Session expired. Please login again.");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        localStorage.clear();
         navigate("/login");
       } else {
         setData([]);
@@ -62,10 +67,9 @@ export default function JadwalKonselingTable() {
   };
 
   const formatTanggal = (tanggal) => {
-    if (!tanggal) return "-";
+    if (!tanggal || tanggal === "-") return "-";
 
     const date = new Date(tanggal);
-
     if (isNaN(date.getTime())) {
       return tanggal;
     }
@@ -89,6 +93,7 @@ export default function JadwalKonselingTable() {
     },
     { header: "Nama Siswa", key: "namaSiswa" },
     { header: "Jenis Konseling", key: "jenisKonseling" },
+    { header: "Jenis Sesi", key: "jenisSesi" },
     {
       header: "Status",
       key: "status",
@@ -122,7 +127,6 @@ export default function JadwalKonselingTable() {
       alert("Riwayat konseling berhasil dihapus");
       fetchData();
     } catch (err) {
-      console.error("Error deleting:", err);
       alert(err.response?.data?.message || "Gagal menghapus riwayat konseling");
     } finally {
       setOpenModal(false);

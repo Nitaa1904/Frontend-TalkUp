@@ -7,7 +7,6 @@ import DetailCard from "../../../../../theme/konsultasi/DetailCard";
 import StatusBadge from "../../../../../theme/StatusBadge";
 
 const DetailPengajuan = ({ data }) => {
-
   const fields = [
     {
       label: "Nama",
@@ -18,13 +17,13 @@ const DetailPengajuan = ({ data }) => {
       value: data.kelas,
     },
     {
-      label: "Guru bk",
+      label: "Guru BK",
       value: data.guru_bk,
       icon: <HiOutlineUser />,
     },
     {
       label: "Jenis Sesi",
-      value: data.jenis_sesi,
+      value: data.jenis_sesi_pengajuan,
       icon: <HiOutlineChatAlt2 />,
     },
     {
@@ -34,7 +33,7 @@ const DetailPengajuan = ({ data }) => {
     },
     {
       label: "Tanggal Pengajuan",
-      value: data.tanggal,
+      value: data.tanggal_pengajuan,
       icon: <HiOutlineCalendar />,
     },
     {

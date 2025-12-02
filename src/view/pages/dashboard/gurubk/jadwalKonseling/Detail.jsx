@@ -5,6 +5,7 @@ import axios from "axios";
 import Breadcrumb from "../../../../components/layout/Breadcrumb";
 import DetailJadwalKonseling from "../../../../components/layout/konsultasi/gurubk/DetailJadwal";
 import CatatanKonselingForm from "../../../../components/layout/konsultasi/gurubk/FormCatatan";
+
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function DetailJadwal() {
@@ -26,7 +27,6 @@ export default function DetailJadwal() {
     if (!tanggal || tanggal === "-") return "-";
 
     const date = new Date(tanggal);
-
     if (isNaN(date.getTime())) {
       return tanggal;
     }
@@ -50,31 +50,51 @@ export default function DetailJadwal() {
         },
       });
 
-      console.log("API Response:", response.data);
       const item = response.data.data;
+      const detail = item.detail_konseling || {};
+
+      const jenisSesi =
+        detail.jenis_sesi_final ||
+        item.jenis_sesi_pengajuan ||
+        item.jenis_sesi ||
+        "-";
+
+      let linkGoogleMeet = "-";
+      if (detail.jenis_sesi_final === "Online") {
+        linkGoogleMeet = detail.link_sesi || "-";
+      } else if (
+        detail.jenis_sesi_final === "Offline" ||
+        detail.jenis_sesi_final === "Tatap Muka"
+      ) {
+        linkGoogleMeet = detail.link_atau_ruang || "-";
+      } else if (detail.link_sesi || detail.link_atau_ruang) {
+        linkGoogleMeet = detail.link_sesi || detail.link_atau_ruang;
+      }
+
+      let waktu = "-";
+      if (detail.waktu_mulai && detail.waktu_selesai) {
+        waktu = `${detail.waktu_mulai} - ${detail.waktu_selesai}`;
+      } else if (detail.waktu_mulai) {
+        waktu = detail.waktu_mulai;
+      } else if (detail.jam_sesi) {
+        waktu = detail.jam_sesi;
+      }
 
       const transformedData = {
         id: item.id_konseling,
         nama: item.siswa?.nama || "-",
         kelas: item.siswa?.kelas || "-",
         guruBK: item.guru_bk?.nama || "-",
-        jenisSesi:
-          item.detail_konseling?.jenis_sesi_final ||
-          item.jenis_sesi_pengajuan ||
-          "-",
+        jenisSesi,
         topikKonseling: item.topik_konseling || "-",
         tanggalPengajuan: formatTanggal(item.tgl_pengajuan),
-        tanggalKonseling: formatTanggal(item.detail_konseling?.tgl_konseling),
-        waktu:
-          item.detail_konseling?.waktu_mulai &&
-          item.detail_konseling?.waktu_selesai
-            ? `${item.detail_konseling.waktu_mulai} - ${item.detail_konseling.waktu_selesai}`
-            : "-",
-        linkGoogleMeet: item.detail_konseling?.link_sesi || "-",
+        tanggalKonseling: formatTanggal(detail.tgl_konseling),
+        waktu,
+        linkGoogleMeet,
         deskripsi: item.deskripsi_masalah || "-",
-        deskripsiJadwal: item.detail_konseling?.deskripsi_jadwal || "-",
-        catatanGuruBK: item.detail_konseling?.catatan_guru_bk || "",
-        catatanSiswa: item.detail_konseling?.catatan_siswa || "",
+        deskripsiJadwal: detail.deskripsi_jadwal || "-",
+        catatanGuruBK: detail.catatan_guru_bk || "",
+        catatanSiswa: detail.catatan_siswa || "",
         status: item.status || "Menunggu",
       };
 
@@ -84,14 +104,13 @@ export default function DetailJadwal() {
         setShowCatatanForm(true);
       }
 
-      if (item.detail_konseling) {
+      if (detail) {
         setCatatan({
-          catatan_guru_bk: item.detail_konseling.catatan_guru_bk || "",
-          catatan_siswa: item.detail_konseling.catatan_siswa || "",
+          catatan_guru_bk: detail.catatan_guru_bk || "",
+          catatan_siswa: detail.catatan_siswa || "",
         });
       }
     } catch (err) {
-      console.error("Error fetching data:", err);
       if (err.response?.status === 401) {
         alert("Session expired. Please login again.");
         localStorage.removeItem("token");
@@ -135,12 +154,9 @@ export default function DetailJadwal() {
         }
       );
 
-      console.log("Success response:", response.data);
       alert("Sesi konseling berhasil diselesaikan");
       navigate("/dashboard/jadwalkonseling");
     } catch (err) {
-      console.error("Error saving catatan:", err);
-      console.error("Error response:", err.response?.data);
       alert(
         err.response?.data?.message || "Gagal menyelesaikan sesi konseling"
       );

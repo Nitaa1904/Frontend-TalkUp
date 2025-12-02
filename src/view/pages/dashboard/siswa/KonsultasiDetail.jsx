@@ -33,23 +33,45 @@ const KonsultasiDetail = () => {
       console.log("API Response:", response.data);
 
       const item = response.data.data;
+      const detail = item.detail_konseling || {};
+
+      const formatTanggal = (tanggal) => {
+        if (!tanggal || tanggal === "-" || tanggal === null) return "-";
+        try {
+          const date = new Date(tanggal);
+          if (isNaN(date.getTime())) return "-";
+          return date.toLocaleDateString("id-ID", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+        } catch (error) {
+          console.error("Error formatting date:", error);
+          return "-";
+        }
+      };
+
       const transformedData = {
         id: item.id_konseling,
         nama: item.siswa?.nama || "-",
         email: item.siswa?.email || "-",
         kelas: item.siswa?.kelas || "-",
         guru_bk: item.guru_bk?.nama || "-",
-        jenis_sesi: item.jenis_sesi || "-",
         topik: item.topik_konseling || "-",
+        jenis_sesi_pengajuan: item.jenis_sesi_pengajuan || "-",
         deskripsi: item.deskripsi_masalah || "-",
         status: item.status || "Pending",
-        tanggal_pengajuan: item.tgl_pengajuan || "-",
-        tanggal_konseling: item.tgl_konseling || "-",
-        tanggal_selesai: item.tgl_selesai || "-",
-        hasil_konseling: item.hasil_konseling || "-",
-        catatan_siswa: item.catatan_siswa || "-",
-        catatan_guru_bk: item.catatan_guru_bk || "-",
+        tanggal_pengajuan: formatTanggal(item.tgl_pengajuan),
+        tanggal_konseling: formatTanggal(detail.tgl_konseling),
+        waktu_mulai: detail.waktu_mulai || "-",
+        waktu_selesai: detail.waktu_selesai || "-",
+        jenis_sesi_final: detail.jenis_sesi_final || "-",
+        link_meet: detail.link_sesi || "-",
+        deskripsi_jadwal: detail.deskripsi_jadwal || "-",
+        hasil_konseling: detail.hasil_konseling || "-",
       };
+
+      console.log("Transformed Data:", transformedData);
 
       setData(transformedData);
     } catch (err) {
